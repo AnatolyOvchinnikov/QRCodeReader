@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools" android:id="@+id/navigation_main"
+            app:startDestination="@id/scansHistoryFragment">
+
+    <fragment android:id="@+id/scansHistoryFragment"
+              android:name="com.app.qrcodeapplication.ui.history.ScansHistoryFragment"
+              android:label="Scan history" tools:layout="@layout/fragment_scans_history_list">
+        <action android:id="@+id/action_scansHistoryFragment_to_scanFragment" app:destination="@id/scanFragment"/>
+    </fragment>
+    <fragment android:id="@+id/scanFragment" android:name="com.app.qrcodeapplication.ui.scan.ScanFragment"
+              android:label="fragment_scan" tools:layout="@layout/fragment_scan"/>
+</navigation>

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">qrcodeapplication</string>
+    <string name="empty_history">Empty history</string>
+    <string name="scan_qrcode">scan qrcode</string>
+    <string name="scanning">Scanning</string>
+    <string name="scan_history">Scan History</string>
+</resources>
