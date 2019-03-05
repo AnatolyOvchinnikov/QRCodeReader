@@ -57,7 +57,7 @@ abstract class BaseActivity : MvpAppCompatActivity(), BaseView {
 
         }
 
-        progressDialog?.setCancelable(true)
+        progressDialog?.setCancelable(false)
         progressDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         progressDialog?.setContentView(R.layout.progressdialog_layout)
     }

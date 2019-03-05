@@ -4,4 +4,14 @@
     <string name="scan_qrcode">scan qrcode</string>
     <string name="scanning">Scanning</string>
     <string name="scan_history">Scan History</string>
+    <string name="data_error">Data is not recognized</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
+    <string name="camera_permission_error">You should enable camera permissions</string>
+    <string name="fiscal_number">fiscalNumber:&#160;</string>
+    <string name="fiscal_sign">fiscalSign:&#160;</string>
+    <string name="fiscal_document">fiscalDocument:&#160;</string>
+    <string name="check_date">date:&#160;</string>
+    <string name="check_sum">sum:&#160;</string>
+
 </resources>

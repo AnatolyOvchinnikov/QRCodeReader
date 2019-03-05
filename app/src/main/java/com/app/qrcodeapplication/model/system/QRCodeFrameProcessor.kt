@@ -4,6 +4,7 @@ import android.graphics.Point
 import android.graphics.Rect
 import android.util.Log
 import android.util.Size
+import com.app.qrcodeapplication.extensions.isEmpty
 import com.google.zxing.*
 import com.google.zxing.common.HybridBinarizer
 import com.google.zxing.qrcode.QRCodeReader
@@ -18,7 +19,6 @@ class QRCodeFrameProcessor(
 ) : FrameProcessor {
     var previewRect: Rect = Rect()
     var previewSize: Size = Size(0, 0)
-    var barcodeImageSize: Size = Size(0, 0)
 
     var enabled: Boolean = false
         set(value) {
@@ -48,7 +48,7 @@ class QRCodeFrameProcessor(
     }
 
     override fun process(frame: Frame) {
-//        if (enabled && !(previewRect.isEmpty || previewSize.isEmpty)) {
+        if (enabled && !(previewRect.isEmpty || previewSize.isEmpty)) {
             val width = frame.size.height
             val height = frame.size.width
 
@@ -58,7 +58,6 @@ class QRCodeFrameProcessor(
 
             if (barcode != null && VALID_BARCODE_REGEX.matches(barcode.text)) {
                 val barcodePosition: Point? = barcodePosition(barcode)
-//                val barcodeImage: Bitmap? = barcode.text.barcodeImage(barcodeImageSize)
                 QRCodeResultRelay.accept(
                     QRCodeResult.Success(
                         barcode.text,
@@ -66,7 +65,7 @@ class QRCodeFrameProcessor(
                     )
                 )
             }
-//        }
+        }
     }
 
     private fun rotateToPortrait(frame: Frame): ByteArray? {

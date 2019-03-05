@@ -14,6 +14,5 @@ data class Check(
         var fiscalDocument: String,
         var date: String,
         var sum: String,
-        var name: String? = null,
-        var checkParam: String? = null
+        var checkDataHtml: String? = null
 ) : Parcelable

@@ -9,7 +9,7 @@ interface CheckDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(check: Check)
 
-    @Query("SELECT * FROM `check`")
+    @Query("SELECT * FROM `check` ORDER BY scanTimestamp DESC")
     fun getChecksList(): Single<List<Check>>
 
     @Update(onConflict = OnConflictStrategy.REPLACE)

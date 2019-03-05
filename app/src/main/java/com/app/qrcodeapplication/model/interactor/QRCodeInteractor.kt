@@ -10,7 +10,6 @@ class QRCodeInteractor (
         val appRepository: QRCodeRepository
 ) {
     fun check(text: String): Single<Check> {
-//        text = "?t=20190216T1718&s=881.37&fn=9289000100157336&i=56673&fp=3883988655&n=1"
         val uri = Uri.parse("?" + text)
 
         val fiscalNumber = uri.getQueryParameter("fn")

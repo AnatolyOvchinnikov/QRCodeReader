@@ -10,17 +10,15 @@ import javax.inject.Singleton
 open class QRCodeLocalCache @Inject constructor(val usersDao: CheckDao,
                                                 val ioExecutor: Executor
 ) {
-    fun insert(check: Check, insertFinished: () -> Unit) {
+    fun insert(check: Check) {
         ioExecutor.execute {
             usersDao.insert(check)
-            insertFinished()
         }
     }
 
-    fun update(check: Check, updateFinished: () -> Unit) {
+    fun update(check: Check) {
         ioExecutor.execute {
             usersDao.update(check)
-            updateFinished()
         }
     }
 

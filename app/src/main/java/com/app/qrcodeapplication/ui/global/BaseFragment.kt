@@ -45,4 +45,9 @@ abstract class BaseFragment : MvpAppCompatFragment(), BaseView {
         super.onDetach()
         hideProgressDialog()
     }
+
+    override fun onStop() {
+        super.onStop()
+        hideProgressDialog()
+    }
 }

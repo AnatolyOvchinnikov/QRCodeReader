@@ -2,7 +2,6 @@ package com.app.qrcodeapplication.ui.lists
 
 import android.databinding.DataBindingUtil
 import android.databinding.ObservableField
-import android.support.v7.app.AlertDialog
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -10,45 +9,49 @@ import android.view.ViewGroup
 import com.app.qrcodeapplication.R
 import com.app.qrcodeapplication.databinding.ItemScanLayoutBinding
 import com.app.qrcodeapplication.entity.Check
+import com.app.qrcodeapplication.ui.global.showCheckData
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ScanViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+class ScanViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
     private lateinit var check: Check
 
     var checkObservable = ObservableField<StringBuilder>()
     val timestampObservable = ObservableField<String>()
 
-    val scanText = StringBuilder()
-
     init {
         view.setOnClickListener {
-            AlertDialog.Builder(view.context)
-                .setMessage(scanText)
-                .setPositiveButton("Ok") { dialog, _ ->
-                    dialog.dismiss()
-                }
-                .create().show()
+            showCheckData(view.context, check)
         }
     }
 
     fun bind(check: Check) {
         if (check != null) {
-//            checkObservable.set(check)
             this.check = check
             val resources = itemView.resources
 
-            scanText.append("fiscalNumber: ").append(check.fiscalNumber).append(System.lineSeparator())
-            scanText.append("fiscalSign: ").append(check.fiscalSign).append(System.lineSeparator())
-            scanText.append("fiscalDocument: ").append(check.fiscalDocument).append(System.lineSeparator())
-            scanText.append("date: ").append(check.date).append(System.lineSeparator())
-            scanText.append("sum: ").append(check.sum).append(System.lineSeparator())
+            val scanText = StringBuilder()
+
+            scanText.append(view.context.getString(R.string.fiscal_number))
+                .append(check.fiscalNumber)
+                .append(System.lineSeparator())
+            scanText.append(view.context.getString(R.string.fiscal_sign))
+                .append(check.fiscalSign)
+                .append(System.lineSeparator())
+            scanText.append(view.context.getString(R.string.fiscal_document))
+                .append(check.fiscalDocument)
+                .append(System.lineSeparator())
+            scanText.append(view.context.getString(R.string.check_date))
+                .append(check.date)
+                .append(System.lineSeparator())
+            scanText.append(view.context.getString(R.string.check_sum))
+                .append(check.sum)
+                .append(System.lineSeparator())
 
             val fDate = SimpleDateFormat("dd.MM.yyyy HH:mm").format(Date(check.scanTimestamp * 1000L))
             timestampObservable.set(fDate)
 
             checkObservable.set(scanText)
-//            itemView.user_name.text = user.user.name
         } else {
 
         }
@@ -65,7 +68,6 @@ class ScanViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             binding?.viewholder = userViewHolder
 
             return binding?.viewholder!!
-//            return UserViewHolder(view)
         }
     }
 }

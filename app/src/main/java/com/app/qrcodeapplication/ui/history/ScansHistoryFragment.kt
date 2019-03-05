@@ -3,13 +3,13 @@ package com.app.qrcodeapplication.ui.history
 import android.os.Bundle
 import android.view.*
 import androidx.navigation.fragment.findNavController
-import com.app.qrcodeapplication.ui.MainActivity
 import com.app.qrcodeapplication.R
 import com.app.qrcodeapplication.entity.Check
-import com.app.qrcodeapplication.ui.global.BaseFragment
-import com.app.qrcodeapplication.ui.lists.ScansHistoryAdapter
 import com.app.qrcodeapplication.presentation.history.ScansHistoryPresenter
 import com.app.qrcodeapplication.presentation.history.ScansHistoryView
+import com.app.qrcodeapplication.ui.MainActivity
+import com.app.qrcodeapplication.ui.global.BaseFragment
+import com.app.qrcodeapplication.ui.lists.ScansHistoryAdapter
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.PresenterType
 import com.arellomobile.mvp.presenter.ProvidePresenter
@@ -17,10 +17,11 @@ import kotlinx.android.synthetic.main.fragment_scans_history_list.*
 
 
 class ScansHistoryFragment : BaseFragment(), ScansHistoryView {
-    @InjectPresenter(type = PresenterType.GLOBAL, tag = "ScansHistoryPresenter")
+
+    @InjectPresenter(type = PresenterType.GLOBAL, tag = PRESENTER_TAG)
     lateinit var presenter: ScansHistoryPresenter
 
-    @ProvidePresenter(type = PresenterType.GLOBAL, tag = "ScansHistoryPresenter")
+    @ProvidePresenter(type = PresenterType.GLOBAL, tag = PRESENTER_TAG)
     fun provideScansHistoryPresenter() = ScansHistoryPresenter()
 
     private val adapter: ScansHistoryAdapter = ScansHistoryAdapter(emptyList())
@@ -43,6 +44,11 @@ class ScansHistoryFragment : BaseFragment(), ScansHistoryView {
         inflater.inflate(R.menu.app_menu, menu);
     }
 
+    override fun onStop() {
+        super.onStop()
+        presenter.onStop()
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         if (id == R.id.scan) {
@@ -62,7 +68,9 @@ class ScansHistoryFragment : BaseFragment(), ScansHistoryView {
     }
 
     private fun updateAdapter(checkList: List<Check>) {
+        val recyclerViewState = list.getLayoutManager()?.onSaveInstanceState()
         adapter.updateData(checkList)
+        list?.getLayoutManager()?.onRestoreInstanceState(recyclerViewState)
     }
 
     override fun showProgress(progress: Boolean) {
@@ -71,5 +79,9 @@ class ScansHistoryFragment : BaseFragment(), ScansHistoryView {
         } else {
             hideProgressDialog()
         }
+    }
+
+    companion object {
+        private const val PRESENTER_TAG = "ScansHistoryPresenter"
     }
 }
