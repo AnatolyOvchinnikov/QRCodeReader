@@ -1,6 +1,7 @@
 package com.app.qrcodeapplication.ui.lists
 
 import android.databinding.DataBindingUtil
+import android.databinding.ObservableBoolean
 import android.databinding.ObservableField
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -18,6 +19,7 @@ class ScanViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
     var checkObservable = ObservableField<StringBuilder>()
     val timestampObservable = ObservableField<String>()
+    val dataReceivedObservable = ObservableBoolean(false)
 
     init {
         view.setOnClickListener {
@@ -50,8 +52,8 @@ class ScanViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
             val fDate = SimpleDateFormat("dd.MM.yyyy HH:mm").format(Date(check.scanTimestamp * 1000L))
             timestampObservable.set(fDate)
-
             checkObservable.set(scanText)
+            dataReceivedObservable.set(check.checkDataHtml?.isNotBlank() == true)
         } else {
 
         }
